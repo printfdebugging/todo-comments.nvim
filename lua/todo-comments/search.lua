@@ -42,7 +42,9 @@ function M.process(lines)
 
   if Config.options.search.sorted_quickfix == true then
     table.sort(results, function(a, b)
-      return a.line:match(":(.*)") <= b.line:match(":(.*)")
+      local line_a = tonumber(a.line:match(": (%d+)")) -- match and convert to number
+      local line_b = tonumber(b.line:match(": (%d+)"))
+      return line_a < line_b -- compare as numbers
     end)
   end
 
